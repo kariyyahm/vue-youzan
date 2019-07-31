@@ -19,13 +19,20 @@
 </template>
 
 <script>
+import store from '../vuex'
 
-import AddressSv from 'js/addressServse.js'
+// import AddressSv from 'js/addressServse.js'
+
 export default {
-    data(){
-        return {
-            lists: null
-        }
+    // data(){
+    //     return {
+    //         lists: null
+    //     }
+    // },
+    computed: {
+      lists() {
+        return this.$store.state.lists
+      }    
     },
     methods: {
         toEdit(list) {
@@ -36,9 +43,12 @@ export default {
         }
     },
     created() {
-        AddressSv.list().then(res=>{
-            this.lists = res.data.lists
-        })
+        // AddressSv.list().then(res=>{
+        //     this.lists = res.data.lists
+        // })
+        if(!this.lists) {
+          this.$store.dispatch('getLists')
+        }
     }
 }
 </script>

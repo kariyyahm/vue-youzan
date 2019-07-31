@@ -18,11 +18,11 @@ export default {
             districtList: null
         }
     },
-    // computed: {
-    //     lists() {
-    //         return this.$store.state.lists
-    //     }
-    // },
+    computed: {
+        lists() {
+            return this.$store.state.lists
+        }
+    },
     created() {
         let query = this.$route.query
         this.type = query.type
@@ -43,43 +43,43 @@ export default {
             let { name, tel, provinceValue, cityValue, districtValue, address } = this
             let data = { name, tel, provinceValue, cityValue, districtValue, address }
             if (this.type === 'add') {
-                Address.add(data).then(res=>{
-                  this.$router.go(-1)
-                })
+                // Address.add(data).then(res=>{
+                //   this.$router.go(-1)
+                // })
 
                 //这里调用函数，进入vuex/index.js
-                // this.$store.dispatch('addAction', data)
+                this.$store.dispatch('addAction', data)
             }
             if (this.type === 'edit') {
                 data.id = this.id
-                Address.update(data).then(res=>{
-                  this.$router.go(-1)
-                })
-                // this.$store.dispatch('updateAction', data)
+                // Address.update(data).then(res=>{
+                //   this.$router.go(-1)
+                // })
+                this.$store.dispatch('updateAction', data)
             }
         },
         remove() {
             if (window.confirm('确实删除？')) {
-                Address.remove(this.id).then(res=>{
-                  this.$router.go(-1)
-                })
-                // this.$store.dispatch('removeAction', this.id)
+                // Address.remove(this.id).then(res=>{
+                //   this.$router.go(-1)
+                // })
+                this.$store.dispatch('removeAction', this.id)
             }
         },
         setDefault() {
-            Address.setDefault(this.id).then(res=>{
-              this.$router.go(-1)
-            })
-            // this.$store.dispatch('setDefaultAction', this.id)
+            // Address.setDefault(this.id).then(res=>{
+            //   this.$router.go(-1)
+            // })
+            this.$store.dispatch('setDefaultAction', this.id)
         }
     },
     watch: {
-        // lists: {
-        //     handler() {
-        //         this.$router.go(-1)
-        //     },
-        //     deep: true
-        // },
+        lists: {
+            handler() {
+                this.$router.go(-1)
+            },
+            deep: true
+        },
         provinceValue(val) {
             if (val === -1) return
             let list = this.addressData.list
